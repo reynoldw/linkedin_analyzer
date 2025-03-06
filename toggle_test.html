@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #0A66C2;
+    }
+    
+    .toggle-container {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      margin: 20px 0;
+    }
+    
+    .toggle {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+      position: absolute;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    .toggle:checked + .toggle-slider {
+      background-color: #0A66C2;
+    }
+    
+    .toggle:checked + .toggle-slider:before {
+      transform: translateX(26px);
+    }
+    
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    
+    .instructions {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Toggle Test</h1>
+  
+  <p>This page tests the toggle functionality to help diagnose issues with the LinkedIn Feed Collector extension.</p>
+  
+  <div>
+    <h2>Test Toggle</h2>
+    <div class="toggle-container">
+      <input type="checkbox" id="test-toggle" class="toggle">
+      <span class="toggle-slider"></span>
+    </div>
+    <div class="status" id="toggle-status">Status: Off</div>
+  </div>
+  
+  <div class="instructions">
+    <h3>How to use this test:</h3>
+    <ol>
+      <li>Click on the toggle above to switch it on/off</li>
+      <li>The status text should update to reflect the toggle state</li>
+      <li>If the toggle works here but not in the extension, there may be an issue with the event handling in the extension</li>
+    </ol>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.getElementById('test-toggle');
+      const status = document.getElementById('toggle-status');
+      
+      // Add click event listener
+      toggle.addEventListener('click', function() {
+        console.log('Toggle clicked, new state:', this.checked);
+        status.textContent = 'Status: ' + (this.checked ? 'On' : 'Off');
+      });
+      
+      // Also add change event listener for comparison
+      toggle.addEventListener('change', function() {
+        console.log('Toggle changed, new state:', this.checked);
+      });
+    });
+  </script>
+</body>
+</html> 

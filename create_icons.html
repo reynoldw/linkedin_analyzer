@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG to PNG Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        canvas {
+            border: 1px solid #eee;
+            margin: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #0A66C2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LinkedIn Feed Collector Icon Generator</h1>
+    <p>This tool will generate PNG icons from the SVG icon in the required sizes (16px, 32px, 48px, 128px).</p>
+    
+    <div>
+        <h2>SVG Source:</h2>
+        <div id="svgContainer"></div>
+    </div>
+    
+    <button id="generateBtn">Generate PNG Icons</button>
+    
+    <div class="output">
+        <h2>Generated Icons:</h2>
+        <div>
+            <h3>16x16:</h3>
+            <canvas id="canvas16" width="16" height="16"></canvas>
+            <a id="download16" download="icon16.png">Download icon16.png</a>
+        </div>
+        <div>
+            <h3>32x32:</h3>
+            <canvas id="canvas32" width="32" height="32"></canvas>
+            <a id="download32" download="icon32.png">Download icon32.png</a>
+        </div>
+        <div>
+            <h3>48x48:</h3>
+            <canvas id="canvas48" width="48" height="48"></canvas>
+            <a id="download48" download="icon48.png">Download icon48.png</a>
+        </div>
+        <div>
+            <h3>128x128:</h3>
+            <canvas id="canvas128" width="128" height="128"></canvas>
+            <a id="download128" download="icon128.png">Download icon128.png</a>
+        </div>
+    </div>
+
+    <script>
+        // SVG content from icon.svg
+        const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="16" fill="#0A66C2" />
+  
+  <!-- LinkedIn Logo (simplified) -->
+  <rect x="32" y="52" width="16" height="44" fill="white" />
+  <circle cx="40" cy="36" r="8" fill="white" />
+  <path d="M60,52 L76,52 L76,68 C76,68 76,76 84,76 C92,76 92,68 92,68 L92,52 L108,52 L108,72 C108,72 108,92 84,92 C60,92 60,72 60,72 Z" fill="white" />
+  
+  <!-- Feed Collection Icon -->
+  <g transform="translate(64, 64) scale(0.5) translate(-64, -64)">
+    <rect x="24" y="24" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="44" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="64" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="84" width="60" height="12" rx="4" fill="white" opacity="0.8" />
+  </g>
+  
+  <!-- Download Arrow -->
+  <g transform="translate(96, 96)">
+    <circle cx="0" cy="0" r="24" fill="#57BB8A" />
+    <path d="M-12,-4 L0,8 L12,-4 M0,-12 L0,8" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>`;
+
+        // Display the SVG
+        document.getElementById('svgContainer').innerHTML = svgContent;
+
+        // Function to convert SVG to PNG
+        function convertSVGtoPNG(svgText, size) {
+            return new Promise((resolve) => {
+                const canvas = document.getElementById(`canvas${size}`);
+                const ctx = canvas.getContext('2d');
+                
+                // Create a new image
+                const img = new Image();
+                
+                // Set up the data URL
+                const svgBlob = new Blob([svgText], {type: 'image/svg+xml'});
+                const url = URL.createObjectURL(svgBlob);
+                
+                // When the image loads, draw it on the canvas
+                img.onload = function() {
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.drawImage(img, 0, 0, size, size);
+                    
+                    // Set the download link
+                    const downloadLink = document.getElementById(`download${size}`);
+                    downloadLink.href = canvas.toDataURL('image/png');
+                    
+                    resolve();
+                };
+                
+                // Set the image source to the SVG data URL
+                img.src = url;
+            });
+        }
+
+        // Generate all icons when button is clicked
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            await convertSVGtoPNG(svgContent, 16);
+            await convertSVGtoPNG(svgContent, 32);
+            await convertSVGtoPNG(svgContent, 48);
+            await convertSVGtoPNG(svgContent, 128);
+            alert('Icons generated! Click on the download links to save each icon.');
+        });
+    </script>
+</body>
+</html> 

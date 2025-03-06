@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Feed Collector - All Posts</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f3f2ef;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #0a66c2;
+      margin: 0;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      background-color: #0a66c2;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #004182;
+    }
+    
+    .filter-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    
+    select, input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .post-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      background-color: #fff;
+      transition: box-shadow 0.2s;
+    }
+    
+    .post-item:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .post-author {
+      font-weight: bold;
+      color: #0a66c2;
+    }
+    
+    .post-date {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .post-content {
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    
+    .post-engagement {
+      display: flex;
+      gap: 15px;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .post-link {
+      color: #0a66c2;
+      text-decoration: none;
+    }
+    
+    .post-link:hover {
+      text-decoration: underline;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 5px;
+    }
+    
+    .pagination button {
+      background-color: #f3f2ef;
+      color: #333;
+      border: 1px solid #ddd;
+      padding: 5px 10px;
+    }
+    
+    .pagination button.active {
+      background-color: #0a66c2;
+      color: white;
+      border-color: #0a66c2;
+    }
+    
+    .no-data {
+      text-align: center;
+      padding: 40px 0;
+      color: #666;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 40px 0;
+      color: #666;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .controls, .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+    
+    .post-author-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    
+    .post-author-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
+    .post-author-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .post-author-name {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    
+    .post-author-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LinkedIn Feed Collector</h1>
+      <div>
+        <button id="back-btn">Back to Popup</button>
+      </div>
+    </header>
+    
+    <div class="controls">
+      <button id="export-btn">Export Data</button>
+      <button id="refresh-btn">Refresh</button>
+    </div>
+    
+    <div class="filter-section">
+      <label for="date-filter">Filter by date:</label>
+      <select id="date-filter">
+        <option value="all">All dates</option>
+        <!-- Dates will be populated dynamically -->
+      </select>
+      
+      <label for="author-filter">Filter by author:</label>
+      <select id="author-filter">
+        <option value="all">All authors</option>
+        <!-- Authors will be populated dynamically -->
+      </select>
+      
+      <label for="search-input">Search:</label>
+      <input type="text" id="search-input" placeholder="Search in posts...">
+    </div>
+    
+    <div id="posts-container">
+      <div class="loading">Loading posts...</div>
+    </div>
+    
+    <div class="pagination" id="pagination">
+      <!-- Pagination buttons will be added here -->
+    </div>
+  </div>
+  
+  <script src="view.js"></script>
+</body>
+</html> 

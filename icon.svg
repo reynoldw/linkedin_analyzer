@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="16" fill="#0A66C2" />
+  
+  <!-- LinkedIn Logo (simplified) -->
+  <rect x="32" y="52" width="16" height="44" fill="white" />
+  <circle cx="40" cy="36" r="8" fill="white" />
+  <path d="M60,52 L76,52 L76,68 C76,68 76,76 84,76 C92,76 92,68 92,68 L92,52 L108,52 L108,72 C108,72 108,92 84,92 C60,92 60,72 60,72 Z" fill="white" />
+  
+  <!-- Feed Collection Icon -->
+  <g transform="translate(64, 64) scale(0.5) translate(-64, -64)">
+    <rect x="24" y="24" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="44" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="64" width="80" height="12" rx="4" fill="white" opacity="0.8" />
+    <rect x="24" y="84" width="60" height="12" rx="4" fill="white" opacity="0.8" />
+  </g>
+  
+  <!-- Download Arrow -->
+  <g transform="translate(96, 96)">
+    <circle cx="0" cy="0" r="24" fill="#57BB8A" />
+    <path d="M-12,-4 L0,8 L12,-4 M0,-12 L0,8" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg> 

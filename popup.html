@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Feed Collector</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="openai-integration.js"></script>
+  <script src="popup.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LinkedIn Feed Collector</h1>
+    </header>
+    
+    <div class="status-container">
+      <div id="status-dot"></div>
+      <div id="status-text">Inactive</div>
+      <div id="linkedin-status">Not connected to LinkedIn</div>
+    </div>
+    
+    <div class="controls">
+      <button id="collection-toggle-btn" class="toggle-button">Start Collection</button>
+      <button id="auto-comment-toggle-btn" class="toggle-button">Enable Auto-Comment</button>
+      <button id="clear-btn" class="action-button">Clear Data</button>
+      <button id="generate-summary-btn" class="action-button">Generate Summary</button>
+    </div>
+    
+    <div id="stats-container"></div>
+    
+    <div class="tabs">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="recent-posts">Recent Posts</button>
+        <button class="tab-button" data-tab="summary">Summary</button>
+      </div>
+      
+      <div class="tab-content active" id="recent-posts">
+        <div id="recent-posts-content"></div>
+      </div>
+      
+      <div class="tab-content" id="summary">
+        <div id="summary-content"></div>
+      </div>
+    </div>
+    
+    <footer>
+      <div>LinkedIn Feed Collector v1.0</div>
+    </footer>
+  </div>
+</body>
+</html> 

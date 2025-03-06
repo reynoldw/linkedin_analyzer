@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Toggle Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #0A66C2;
+    }
+    
+    /* Basic checkbox styling */
+    .checkbox-container {
+      margin: 20px 0;
+    }
+    
+    /* Custom toggle styling */
+    .custom-toggle {
+      margin: 20px 0;
+    }
+    
+    .custom-toggle label {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      background-color: #ccc;
+      border-radius: 34px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .custom-toggle label:after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: white;
+      top: 4px;
+      left: 4px;
+      transition: all 0.3s;
+    }
+    
+    .custom-toggle input[type="checkbox"] {
+      display: none;
+    }
+    
+    .custom-toggle input[type="checkbox"]:checked + label {
+      background-color: #0A66C2;
+    }
+    
+    .custom-toggle input[type="checkbox"]:checked + label:after {
+      transform: translateX(26px);
+    }
+    
+    /* Button toggle styling */
+    .button-toggle {
+      margin: 20px 0;
+    }
+    
+    .button-toggle button {
+      padding: 10px 20px;
+      background-color: #ccc;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .button-toggle button.active {
+      background-color: #0A66C2;
+      color: white;
+    }
+    
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    
+    .instructions {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Toggle Test</h1>
+  
+  <p>This page tests different toggle implementations to help diagnose issues with the LinkedIn Feed Collector extension.</p>
+  
+  <div>
+    <h2>1. Basic Checkbox</h2>
+    <div class="checkbox-container">
+      <input type="checkbox" id="basic-checkbox">
+      <label for="basic-checkbox">Toggle me</label>
+    </div>
+    <div class="status" id="basic-status">Status: Off</div>
+  </div>
+  
+  <div>
+    <h2>2. Custom Toggle</h2>
+    <div class="custom-toggle">
+      <input type="checkbox" id="custom-toggle">
+      <label for="custom-toggle"></label>
+    </div>
+    <div class="status" id="custom-status">Status: Off</div>
+  </div>
+  
+  <div>
+    <h2>3. Button Toggle</h2>
+    <div class="button-toggle">
+      <button id="button-toggle">Toggle: OFF</button>
+    </div>
+    <div class="status" id="button-status">Status: Off</div>
+  </div>
+  
+  <div class="instructions">
+    <h3>How to use this test:</h3>
+    <ol>
+      <li>Try all three toggle methods above</li>
+      <li>Check which ones work and which ones don't</li>
+      <li>This will help determine the best approach for fixing the extension</li>
+    </ol>
+  </div>
+  
+  <script>
+    // Wait for DOM to be fully loaded
+    window.onload = function() {
+      // 1. Basic Checkbox
+      const basicCheckbox = document.getElementById('basic-checkbox');
+      const basicStatus = document.getElementById('basic-status');
+      
+      basicCheckbox.addEventListener('change', function() {
+        console.log('Basic checkbox changed:', this.checked);
+        basicStatus.textContent = 'Status: ' + (this.checked ? 'On' : 'Off');
+      });
+      
+      // 2. Custom Toggle
+      const customToggle = document.getElementById('custom-toggle');
+      const customStatus = document.getElementById('custom-status');
+      
+      customToggle.addEventListener('change', function() {
+        console.log('Custom toggle changed:', this.checked);
+        customStatus.textContent = 'Status: ' + (this.checked ? 'On' : 'Off');
+      });
+      
+      // 3. Button Toggle
+      const buttonToggle = document.getElementById('button-toggle');
+      const buttonStatus = document.getElementById('button-status');
+      let buttonActive = false;
+      
+      buttonToggle.addEventListener('click', function() {
+        buttonActive = !buttonActive;
+        console.log('Button toggle clicked, new state:', buttonActive);
+        
+        if (buttonActive) {
+          this.classList.add('active');
+          this.textContent = 'Toggle: ON';
+          buttonStatus.textContent = 'Status: On';
+        } else {
+          this.classList.remove('active');
+          this.textContent = 'Toggle: OFF';
+          buttonStatus.textContent = 'Status: Off';
+        }
+      });
+    };
+  </script>
+</body>
+</html> 

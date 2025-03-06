@@ -1,0 +1,27 @@
+{
+  "name": "linkedin-feed-collector",
+  "version": "1.0.0",
+  "description": "A Chrome extension that collects posts from your LinkedIn feed and allows you to export them, generate summaries, and optionally auto-comment on posts.",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p dist && zip -r dist/linkedin-feed-collector.zip . -x \"*.git*\" \"node_modules/*\" \"dist/*\" \"*.zip\" \"convert_icon.html\""
+  },
+  "keywords": [
+    "chrome-extension",
+    "linkedin",
+    "feed",
+    "collector",
+    "auto-comment"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/linkedin-feed-collector"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/linkedin-feed-collector/issues"
+  },
+  "homepage": "https://github.com/yourusername/linkedin-feed-collector#readme"
+}
